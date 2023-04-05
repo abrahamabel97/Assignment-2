@@ -5,7 +5,9 @@ Created on Tue Apr  4 16:03:21 2023
 @author: abrah
 """
 import pandas as pd
-import scipy.stats
+from scipy.stats import skew
+from scipy.stats import kurtosis
+import matplotlib as plt
 
 
 def dataframe(file, countries, years):
@@ -104,23 +106,35 @@ def plotdf(df, kind, name):
         plt.show()
         return
 
-countries = ["China", "India", "Greenland", "United States", "Nepal", "United Kingdom"]
 
+countries = ["China", "India", "Australia", "United States",
+             "Brazil", "United Kingdom"]
 years = [str(i) for i in range(2000, 2015)]
 
-df, df_t = dataframe("electricity from oil, gas, coal.csv", countries, years)
-co, co_t = dataframe("co2 emission per capita.csv", countries, years)
+df, df_t = dataframe("Eletricity from coal.csv",
+                     countries, years)
+co, co_t = dataframe("Agriculture Land (percentage of land area).csv", countries, years)
 
 stat(df_t)
-
 stat(co_t)
 
-plotdf(df_t, "Line", "Electicity Produced from Oil, Gas, Coal (% of total)")
+plotdf(df_t, "Line", "Electricity production from coal sources (% of total)")
 
 plotdf(co_t, "Line", "CO2 Emmission per capita")
 
-years [str(i) for i in range(1994, 2015, 5)]
+years = [str(i) for i in range(1994, 2015, 5)]
 
-nu, nu t = dataframe("electricity from nuclear.csv", countries, years)
+nu, nu_t = dataframe("electricity from nuclear.csv", countries, years)
 
+stat(nu_t)
 
+plotdf(nu, "bar", "Electicity Produced from Nuclear Sources (% of total)")
+
+rn, rn_t = dataframe("Electricity from renewable ex hydro.csv",
+                     countries, years)
+hy, hy_t = dataframe("Electricity from hydro.csv", countries, years)
+
+stat(rn_t.add(hy_t))
+
+plotdf(rn.add(hy), "bar",
+       "Electicity Produced from Renewable Sources (% of total)")
